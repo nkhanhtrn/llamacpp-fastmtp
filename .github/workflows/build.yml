@@ -55,7 +55,8 @@ jobs:
             -DGGML_CUDA=ON \
             -DGGML_CURL=OFF \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_CUDA_ARCHITECTURES=75
+            -DCMAKE_CUDA_ARCHITECTURES=75 \
+            -DCMAKE_LIBRARY_PATH=/usr/local/cuda/lib64/stubs
           cmake --build build --target llama-server -j"$(nproc)"
 
       - name: bundle (binary + CUDA runtime libs)
