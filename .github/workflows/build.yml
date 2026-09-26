@@ -51,6 +51,9 @@ jobs:
         working-directory: /src/llama.cpp
         run: |
           export PATH=/usr/local/cuda/bin:$PATH
+          # GPU-less CI: expose the driver-API stub in the default linker path
+          # (ggml-cuda links driver symbols like cuMemCreate but never adds -lcuda)
+          ln -sf /usr/local/cuda/lib64/stubs/libcuda.so /usr/lib/x86_64-linux-gnu/libcuda.so
           cmake -B build -S . \
             -DGGML_CUDA=ON \
             -DGGML_CURL=OFF \
